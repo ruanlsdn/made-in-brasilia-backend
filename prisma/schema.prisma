@@ -9,3 +9,39 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id         String   @id @default(uuid())
+  username   String
+  password   String
+  userType   UserType @relation(fields: [userTypeId], references: [id])
+  userTypeId Int
+}
+
+model UserType {
+  id          Int    @id @default(autoincrement())
+  description String
+  User        User[]
+}
+
+model City {
+  id    String @id @default(uuid())
+  name  String
+  title String
+  text  String
+}
+
+model Place {
+  id    String @id @default(uuid())
+  name  String
+  title String
+  text  String
+  rate  Float
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  text    String
+  like    Int
+  deslike Int
+}
