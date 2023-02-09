@@ -25,18 +25,21 @@ model UserType {
 }
 
 model City {
-  id    String @id @default(uuid())
+  id    String  @id @default(uuid())
   name  String
   title String
   text  String
+  Place Place[]
 }
 
 model Place {
-  id    String @id @default(uuid())
-  name  String
-  title String
-  text  String
-  rate  Float
+  id     String @id @default(uuid())
+  name   String
+  title  String
+  text   String
+  rate   Float
+  city   City   @relation(fields: [cityId], references: [id])
+  cityId String
 }
 
 model Comment {

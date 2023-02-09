@@ -1,26 +1,51 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
+import { City } from '@prisma/client';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dto/create-city.dto';
+import { UpdateCityDto } from './dto/update-city.dto';
 
 @Controller('city')
 export class CityController {
-  constructor(private readonly cityService: CityService) {}
+  constructor(private readonly service: CityService) {}
 
   @Post()
-  create(@Body() createCityDto: CreateCityDto) {
-    return this.cityService.create(createCityDto);
+  async create(@Body() createCityDto: CreateCityDto): Promise<City> {
+    return await this.service.create(createCityDto);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateCityDto: UpdateCityDto,
+  ): Promise<City> {
+    return await this.service.update(id, updateCityDto);
+  }
+
+  @Get('/find-unique/:id')
+  async findUnique(@Param('id') id: string): Promise<City> {
+    return await this.service.findUnique(id);
+  }
+
+  @Get('/list-all')
+  async listAll(): Promise<City[]> {
+    return await this.service.listAll();
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    return await this.service.delete(id);
   }
 
   @Get('/get-ai-texts/:cidade')
-  getTextsFromAi(@Param('cidade') cidade) {
-    return this.cityService.getTextsFromAi(cidade);
+  getTextsFromAi(@Param('cidade') cidade: string) {
+    return this.service.getTextsFromAi(cidade);
   }
 }
