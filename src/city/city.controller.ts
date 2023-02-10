@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Query,
   Post,
   Put,
 } from '@nestjs/common';
@@ -35,8 +36,8 @@ export class CityController {
   }
 
   @Get('/list-all')
-  async listAll(): Promise<City[]> {
-    return await this.service.listAll();
+  async listAll(@Query('page') page: number): Promise<City[]> {
+    return await this.service.listAll(page);
   }
 
   @Delete(':id')

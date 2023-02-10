@@ -37,9 +37,20 @@ export class CityService {
     return await this.prisma.city.findUniqueOrThrow({ where: { id } });
   }
 
-  async listAll(): Promise<City[]> {
+  async listAll(page: number): Promise<City[]> {
+    const PAGE_SIZE = 8;
+    const skip = page * PAGE_SIZE;
+
+    if (isNaN(skip))
+      return await this.prisma.city.findMany({
+        orderBy: { name: Prisma.SortOrder.asc },
+        take: PAGE_SIZE,
+      });
+
     return await this.prisma.city.findMany({
       orderBy: { name: Prisma.SortOrder.asc },
+      skip,
+      take: PAGE_SIZE,
     });
   }
 
