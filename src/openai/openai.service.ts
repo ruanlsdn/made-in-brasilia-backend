@@ -22,11 +22,11 @@ export class OpenaiService {
         prompt: message,
         model: DEFAULT_MODEL,
         temperature: DEFAULT_TEMPERATURE,
-        max_tokens: 50,
+        max_tokens: 512,
       });
 
       return this.parseIATextToJson(
-        response.data.choices[0].text.replace(/\n/g, ''),
+        response.data.choices[0].text.replace(/\n/g, '').trim(),
       );
     } catch (error) {
       throw new Error('Something went wrong - ' + error.message);
@@ -34,12 +34,12 @@ export class OpenaiService {
   }
 
   parseIATextToJson(IAtext: string) {
-    const title = IAtext.substring(0, IAtext.indexOf('Resumo'));
-    const text = IAtext.substring(title.length);
+    const title = IAtext.substring(3, IAtext.indexOf('2:'));
+    const text = IAtext.substring(IAtext.indexOf('2:') + 3, IAtext.length);
 
     return {
-      title: title.substring('Titulo:'.length + 1).trim(),
-      text: text.substring('Resumo:'.length).trim(),
+      title: title.trim(),
+      text: text.trim(),
     };
   }
 }

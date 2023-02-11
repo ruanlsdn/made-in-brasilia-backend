@@ -38,7 +38,7 @@ export class CityService {
   }
 
   async listAll(page: number): Promise<City[]> {
-    const PAGE_SIZE = 8;
+    const PAGE_SIZE = 4;
     const skip = page * PAGE_SIZE;
 
     if (isNaN(skip))
@@ -55,7 +55,6 @@ export class CityService {
   }
 
   async delete(id: string) {
-    await this.findUnique(id);
     await this.prisma.city.delete({
       where: { id },
     });
@@ -64,9 +63,11 @@ export class CityService {
   async getTextsFromAi(cidade: string) {
     const PROMPT = `
     Siga a seguinte estrutura:\n\n
-    titulo:  (conteudo do titulo)\n
-    resumo: (conteudo do resumo)\n\n
-    e monte um titulo (${cidade} - (alguma caracteristica marcante do local) e faça um resumo prolixo da história da cidade ${cidade} - Brasília - DF\n\n
+    1: \n
+    2: \n\n
+    em 1 coloque um titulo sendo algo similiar a (${cidade} - (alguma caracteristica marcante do local)
+    em 2 coloque um resumo prolixo da história da cidade ${cidade} 
+    localizada em Brasília no Distrito Federal\n\n
     `;
 
     return await this.openAiService.getAnswer(PROMPT);
