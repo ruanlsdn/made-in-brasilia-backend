@@ -8,7 +8,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createPostDto: CreatePostDto) {
+  async create(createPostDto: CreatePostDto): Promise<Post> {
     return await this.prisma.post.create({
       data: {
         name: createPostDto.name,
@@ -30,7 +30,6 @@ export class PostService {
 
       // QUERY UTILIZADA NO ADMIN
       return await this.prisma.post.findMany({
-        where: { cityId: cityId },
         orderBy: { name: Prisma.SortOrder.asc },
         skip,
         take: PAGE_SIZE,
@@ -44,11 +43,25 @@ export class PostService {
     });
   }
 
-  async findUnique(id: string) {
+  async listAllPending(cityId: string, page: number): Promise<Post[]> {
+    if (!isNaN(page)) {
+      const PAGE_SIZE = 5;
+      const skip = page * PAGE_SIZE;
+
+      return await this.prisma.post.findMany({
+        where: { cityId: cityId, AND: { postStatusId: 1 } },
+        orderBy: { name: Prisma.SortOrder.asc },
+        skip,
+        take: PAGE_SIZE,
+      });
+    }
+  }
+
+  async findUnique(id: string): Promise<Post> {
     return await this.prisma.post.findUniqueOrThrow({ where: { id } });
   }
 
-  async update(id: string, updatePostDto: UpdatePostDto) {
+  async update(id: string, updatePostDto: UpdatePostDto): Promise<Post> {
     return await this.prisma.post.update({
       where: { id },
       data: {
@@ -58,12 +71,13 @@ export class PostService {
         closeDay: updatePostDto.closeDay,
         openTime: updatePostDto.openTime,
         closeTime: updatePostDto.closeTime,
+        postStatusId: updatePostDto.postStatusId,
         cityId: updatePostDto.cityId,
       },
     });
   }
 
-  async remove(id: string) {
-    return await this.prisma.post.delete({ where: { id } });
+  async remove(id: string): Promise<void> {
+    await this.prisma.post.delete({ where: { id } });
   }
 }

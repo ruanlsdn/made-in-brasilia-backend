@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, IsIn } from 'class-validator';
 
 export class CreatePostDto {
   @ApiProperty()
@@ -36,4 +36,9 @@ export class CreatePostDto {
   @IsNotEmpty()
   @IsString()
   cityId: string;
+
+  @ApiProperty()
+  @IsInt()
+  @IsIn([1, 2, 3])
+  postStatusId?: number;
 }
