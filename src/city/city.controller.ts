@@ -8,11 +8,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { City } from '@prisma/client';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
 
+// TODO: Verificar uma maneira de carregar imagens para o banco ou para a aplicação.
+@ApiTags('city')
 @Controller('city')
 export class CityController {
   constructor(private readonly service: CityService) {}
@@ -30,14 +33,15 @@ export class CityController {
     return await this.service.update(id, updateCityDto);
   }
 
-  @Get('/find-unique/:id')
-  async findUnique(@Param('id') id: string): Promise<City> {
-    return await this.service.findUnique(id);
+  @Get()
+  async listAll(): Promise<City[]> {
+    return await this.service.listAll();
   }
 
-  @Get('/list-all')
-  async listAll(@Query('page') page: number): Promise<City[]> {
-    return await this.service.listAll(page);
+  @ApiQuery({ name: 'page', required: false })
+  @Get('/paginated')
+  async listAllPaginated(@Query('page') page: number): Promise<City[]> {
+    return await this.service.listAllPaginated(page);
   }
 
   @Delete(':id')
