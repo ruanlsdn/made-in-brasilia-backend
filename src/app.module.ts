@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { CityModule } from './city/city.module';
 import { PostModule } from './post/post.module';
 import { PostStatusModule } from './post-status/post-status.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { UserTypeModule } from './user-type/user-type.module';
 
 @Module({
   imports: [
@@ -14,6 +17,9 @@ import { PostStatusModule } from './post-status/post-status.module';
     CityModule,
     PostModule,
     PostStatusModule,
+    UserModule,
+    AuthModule,
+    UserTypeModule,
   ],
   controllers: [],
   providers: [],
