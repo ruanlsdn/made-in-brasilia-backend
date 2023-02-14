@@ -25,7 +25,7 @@ export class UserService {
     });
   }
 
-  async findUnique(username: string, password: string) {
+  async findUnique(username: string) {
     return await this.prisma.user.findUniqueOrThrow({
       where: {
         username: username,
