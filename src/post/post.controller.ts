@@ -18,7 +18,6 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
 
 // TODO: Adicionar relacionamento entre Post e User quando tiver um módulo de login na aplicação.
-// TODO: Verificar uma maneira de carregar imagens para o banco ou para a aplicação.
 @ApiTags('post')
 @Controller('post')
 export class PostController {
