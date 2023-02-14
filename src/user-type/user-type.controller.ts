@@ -10,7 +10,9 @@ import {
 import { UserTypeService } from './user-type.service';
 import { CreateUserTypeDto } from './dto/create-user-type.dto';
 import { UpdateUserTypeDto } from './dto/update-user-type.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user-type')
 @Controller('user-type')
 export class UserTypeController {
   constructor(private readonly userTypeService: UserTypeService) {}

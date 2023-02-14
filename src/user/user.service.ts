@@ -10,13 +10,15 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    return await this.prisma.user.create({
+    const response = await this.prisma.user.create({
       data: {
         username: createUserDto.username,
         password: bcrypt.hashSync(createUserDto.password, 10),
         userTypeId: 1,
       },
     });
+
+    return { password: null, ...response };
   }
 
   async listAll() {
