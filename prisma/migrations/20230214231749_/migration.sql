@@ -33,6 +33,17 @@ CREATE TABLE "City" (
 );
 
 -- CreateTable
+CREATE TABLE "CityImages" (
+    "id" TEXT NOT NULL,
+    "content" BYTEA NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "cityId" TEXT NOT NULL,
+
+    CONSTRAINT "CityImages_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -48,6 +59,17 @@ CREATE TABLE "Post" (
     "userId" TEXT,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PostImages" (
+    "id" TEXT NOT NULL,
+    "content" BYTEA NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "postId" TEXT NOT NULL,
+
+    CONSTRAINT "PostImages_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -94,6 +116,9 @@ CREATE UNIQUE INDEX "City_name_key" ON "City"("name");
 ALTER TABLE "User" ADD CONSTRAINT "User_userTypeId_fkey" FOREIGN KEY ("userTypeId") REFERENCES "UserType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "CityImages" ADD CONSTRAINT "CityImages_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -101,6 +126,9 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_postStatusId_fkey" FOREIGN KEY ("postSta
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PostImages" ADD CONSTRAINT "PostImages_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

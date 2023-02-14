@@ -40,5 +40,5 @@ export class CreatePostDto {
   @ApiProperty()
   @IsInt()
   @IsIn([1, 2, 3])
-  postStatusId?: number;
+  postStatusId: number;
 }

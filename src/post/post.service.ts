@@ -18,9 +18,22 @@ export class PostService {
         openTime: createPostDto.openTime,
         closeTime: createPostDto.closeTime,
         cityId: createPostDto.cityId,
-        postStatusId: 1,
+        postStatusId: createPostDto.postStatusId,
       },
     });
+  }
+
+  async upload(postId: string, buffer: Buffer) {
+    return await this.prisma.postImages.create({
+      data: {
+        postId,
+        content: buffer,
+      },
+    });
+  }
+
+  async listAllImages() {
+    return await this.prisma.postImages.findMany({});
   }
 
   async listAll(cityId: string, page: number): Promise<Post[]> {

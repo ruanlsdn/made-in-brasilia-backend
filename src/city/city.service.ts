@@ -22,6 +22,19 @@ export class CityService {
     });
   }
 
+  async upload(cityId: string, buffer: Buffer) {
+    return await this.prisma.cityImages.create({
+      data: {
+        cityId,
+        content: buffer,
+      },
+    });
+  }
+
+  async listAllImages() {
+    return await this.prisma.cityImages.findMany({});
+  }
+
   async update(id: string, updateCityDto: UpdateCityDto) {
     return await this.prisma.city.update({
       where: { id },

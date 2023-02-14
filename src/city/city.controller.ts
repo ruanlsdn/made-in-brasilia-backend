@@ -7,14 +7,16 @@ import {
   Query,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { City } from '@prisma/client';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
 
-// TODO: Verificar uma maneira de carregar imagens para o banco ou para a aplicação.
 @ApiTags('city')
 @Controller('city')
 export class CityController {
@@ -23,6 +25,22 @@ export class CityController {
   @Post()
   async create(@Body() createCityDto: CreateCityDto): Promise<City> {
     return await this.service.create(createCityDto);
+  }
+
+  @Post('/images/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(
+    @Body() data: any,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const { cityId } = data;
+    const { buffer } = file;
+    return await this.service.upload(cityId, buffer);
+  }
+
+  @Get('/images/list')
+  async listAllImages() {
+    return await this.service.listAllImages();
   }
 
   @Put(':id')

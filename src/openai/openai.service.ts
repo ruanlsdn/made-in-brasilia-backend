@@ -22,7 +22,7 @@ export class OpenaiService {
         prompt: message,
         model: DEFAULT_MODEL,
         temperature: DEFAULT_TEMPERATURE,
-        max_tokens: 512,
+        max_tokens: 30,
       });
 
       return this.parseIATextToJson(
