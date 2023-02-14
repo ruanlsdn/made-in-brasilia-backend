@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Put, Query } from '@nestjs/common/decorators';
 
 @ApiTags('user')
 @Controller('user')
@@ -23,8 +24,8 @@ export class UserController {
   }
 
   @Get()
-  listAll() {
-    return this.userService.listAll();
+  listAll(@Query('page') page: number) {
+    return this.userService.listAll(page);
   }
 
   @Get(':id')
@@ -32,7 +33,7 @@ export class UserController {
     return this.userService.findUnique(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }

@@ -21,9 +21,23 @@ export class UserService {
     return { password: null, ...response };
   }
 
-  async listAll() {
+  async listAll(page: number) {
+    const PAGE_SIZE = 10;
+    const skip = page * PAGE_SIZE;
+
+    if (isNaN(page)) {
+      return await this.prisma.user.findMany({
+        include: { userType: true },
+        orderBy: { username: Prisma.SortOrder.asc },
+        take: PAGE_SIZE,
+      });
+    }
+
     return await this.prisma.user.findMany({
+      include: { userType: true },
       orderBy: { username: Prisma.SortOrder.asc },
+      skip,
+      take: PAGE_SIZE,
     });
   }
 
@@ -41,6 +55,7 @@ export class UserService {
       data: {
         username: updateUserDto.username,
         password: bcrypt.hashSync(updateUserDto.password, 10),
+        userTypeId: updateUserDto.userTypeId,
       },
     });
   }
