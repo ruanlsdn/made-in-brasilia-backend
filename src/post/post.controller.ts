@@ -54,6 +54,11 @@ export class PostController {
     return await this.service.listAll(cityId, page);
   }
 
+  @Get(':id')
+  async findUnique(@Param('id') id: string) {
+    return await this.service.findUnique(id);
+  }
+
   @ApiQuery({ name: 'cityId', required: false })
   @ApiQuery({ name: 'page', required: false })
   @Get('/pending/')

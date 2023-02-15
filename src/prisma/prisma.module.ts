@@ -7,3 +7,18 @@ import { PrismaService } from './prisma.service';
   exports: [PrismaService],
 })
 export class PrismaModule {}
+
+// @Global()
+// @Module({
+//   providers: [
+//     {
+//       provide: PrismaService,
+//       useFactory: () =>
+//         new PrismaClient({
+//           log: ['query'],
+//         }),
+//     },
+//   ],
+//   exports: [PrismaService],
+// })
+// export class PrismaModule {}

@@ -8,6 +8,7 @@ import { PostStatusModule } from './post-status/post-status.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserTypeModule } from './user-type/user-type.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserTypeModule } from './user-type/user-type.module';
     UserModule,
     AuthModule,
     UserTypeModule,
+    CommentModule,
   ],
   controllers: [],
   providers: [],

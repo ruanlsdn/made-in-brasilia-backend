@@ -52,6 +52,7 @@ export class PostService {
     // QUERY UTILIZADA NO FRONTEND
     return await this.prisma.post.findMany({
       where: { cityId: cityId },
+      include: { PostStatus: true },
       orderBy: { name: Prisma.SortOrder.asc },
     });
   }
@@ -71,7 +72,17 @@ export class PostService {
   }
 
   async findUnique(id: string): Promise<Post> {
-    return await this.prisma.post.findUniqueOrThrow({ where: { id } });
+    return await this.prisma.post.findUniqueOrThrow({
+      where: { id },
+      include: {
+        Comment: {
+          include: {
+            User: true,
+            Answer: { include: { User: true } },
+          },
+        },
+      },
+    });
   }
 
   async update(id: string, updatePostDto: UpdatePostDto): Promise<Post> {

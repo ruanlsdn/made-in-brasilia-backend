@@ -52,23 +52,25 @@ model CityImages {
 }
 
 model Post {
-  id           String       @id @default(uuid())
-  name         String
-  text         String
-  openDay      String
-  closeDay     String
-  openTime     String
-  closeTime    String
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  city         City         @relation(fields: [cityId], references: [id])
-  cityId       String
-  PostStatus   PostStatus   @relation(fields: [postStatusId], references: [id])
-  postStatusId Int
-  Comment      Comment[]
-  User         User?        @relation(fields: [userId], references: [id])
-  userId       String?
-  PostImages   PostImages[]
+  id             String       @id @default(uuid())
+  name           String
+  text           String
+  openDay        String
+  closeDay       String
+  openTime       String
+  closeTime      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  city           City         @relation(fields: [cityId], references: [id])
+  cityId         String
+  PostStatus     PostStatus   @relation(fields: [postStatusId], references: [id])
+  postStatusId   Int
+  PostCategory   PostCategory @relation(fields: [postCategoryId], references: [id])
+  postCategoryId Int
+  Comment        Comment[]
+  User           User?        @relation(fields: [userId], references: [id])
+  userId         String?
+  PostImages     PostImages[]
 }
 
 model PostImages {
@@ -78,6 +80,14 @@ model PostImages {
   updatedAt DateTime @updatedAt
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
+}
+
+model PostCategory {
+  id          Int      @id @default(autoincrement())
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Post        Post[]
 }
 
 model PostStatus {
@@ -95,8 +105,8 @@ model Comment {
   updatedAt DateTime @updatedAt
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
-  User      User     @relation(fields: [userId], references: [id])
-  userId    String
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
   Answer    Answer[]
 }
 
