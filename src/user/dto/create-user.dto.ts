@@ -11,10 +11,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   password: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsInt()
-  @IsIn([1, 2, 3])
-  userTypeId: number;
 }

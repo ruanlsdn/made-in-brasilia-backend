@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -17,8 +18,17 @@ export class CommentService {
     });
   }
 
-  async listAll() {
-    return await this.prisma.comment.findMany({});
+  async listAll(page: number, postId: string) {
+    const PAGE_SIZE = 10;
+    const skip = page * PAGE_SIZE;
+
+    return await this.prisma.comment.findMany({
+      where: { postId: postId },
+      include: { Answer: true, User: true },
+      orderBy: { createdAt: Prisma.SortOrder.desc },
+      skip,
+      take: PAGE_SIZE,
+    });
   }
 
   async findUnique(id: string) {

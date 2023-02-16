@@ -7,29 +7,26 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
+@ApiTags('comment')
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post()
   create(@Body() createCommentDto: CreateCommentDto) {
-    console.log(createCommentDto);
     return this.commentService.create(createCommentDto);
   }
 
-  @Get()
-  listAll() {
-    return this.commentService.listAll();
-  }
-
-  @Get(':id')
-  findUnique(@Param('id') id: string) {
-    return this.commentService.findUnique(id);
+  @Get(':postId')
+  listAll(@Query('page') page: number, @Param('postId') postId: string) {
+    return this.commentService.listAll(page, postId);
   }
 
   @Put(':id')

@@ -18,7 +18,7 @@ export class UserService {
       },
     });
 
-    return { password: null, ...response };
+    return { ...response, password: null };
   }
 
   async listAll(page: number) {
