@@ -38,9 +38,9 @@ export class CityController {
     return await this.service.upload(cityId, buffer);
   }
 
-  @Get('/images/list')
-  async listAllImages() {
-    return await this.service.listAllImages();
+  @Get('/images/list/:cityId')
+  async listAllImages(@Param('cityId') cityId: string) {
+    return await this.service.listAllImages(cityId);
   }
 
   @Put(':id')

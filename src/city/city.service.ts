@@ -31,8 +31,11 @@ export class CityService {
     });
   }
 
-  async listAllImages() {
-    return await this.prisma.cityImages.findMany({});
+  async listAllImages(cityId: string) {
+    const response = await this.prisma.cityImages.findFirstOrThrow({
+      where: { cityId: cityId },
+    });
+    return response.content.toString('base64');
   }
 
   async update(id: string, updateCityDto: UpdateCityDto) {

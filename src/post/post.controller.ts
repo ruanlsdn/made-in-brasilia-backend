@@ -39,9 +39,9 @@ export class PostController {
     return await this.service.upload(postId, buffer);
   }
 
-  @Get('/images/list')
-  async listAllImages() {
-    return await this.service.listAllImages();
+  @Get('/images/list/:postId')
+  async listAllImages(@Param('postId') postId: string) {
+    return await this.service.listAllImages(postId);
   }
 
   @ApiQuery({ name: 'cityId', required: false })

@@ -32,8 +32,16 @@ export class PostService {
     });
   }
 
-  async listAllImages() {
-    return await this.prisma.postImages.findMany({});
+  async listAllImages(postId: string) {
+    const response = await this.prisma.postImages.findMany({
+      where: { postId: postId },
+    });
+
+    const base64: string[] = response.map((image) =>
+      image.content.toString('base64'),
+    );
+
+    return base64;
   }
 
   async listAll(cityId: string, page: number): Promise<Post[]> {
