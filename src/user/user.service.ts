@@ -18,7 +18,7 @@ export class UserService {
       },
     });
 
-    return { ...response, password: null };
+    return { ...response, password: undefined };
   }
 
   async listAll(page: number) {
@@ -42,15 +42,22 @@ export class UserService {
   }
 
   async findUnique(username: string) {
-    return await this.prisma.user.findUniqueOrThrow({
+    return await this.prisma.user.findFirstOrThrow({
       where: {
         username: username,
       },
     });
   }
 
+  async findById(id: string) {
+    const response = await this.prisma.user.findUniqueOrThrow({
+      where: { id: id },
+    });
+    return { ...response, password: undefined };
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.prisma.user.update({
+    const response = await this.prisma.user.update({
       where: { id: id },
       data: {
         username: updateUserDto.username,
@@ -58,9 +65,11 @@ export class UserService {
         userTypeId: updateUserDto.userTypeId,
       },
     });
+
+    return { ...response, password: undefined };
   }
 
   async remove(id: string) {
-    return await this.prisma.user.delete({ where: { id: id } });
+    await this.prisma.user.delete({ where: { id: id } });
   }
 }

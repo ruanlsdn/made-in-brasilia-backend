@@ -13,7 +13,7 @@ export class AuthService {
 
       if (!bcrypt.compareSync(password, user.password)) return null;
 
-      return { ...user, password: null };
+      return { ...user, password: undefined };
     } catch (error) {
       return null;
     }
