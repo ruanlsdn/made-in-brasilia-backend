@@ -61,7 +61,7 @@ export class PostController {
 
   @ApiQuery({ name: 'cityId', required: false })
   @ApiQuery({ name: 'page', required: false })
-  @Get('/pending/')
+  @Get('/status/pending')
   async listAllPending(
     @Query('cityId') cityId: string,
     @Query('page') page: number,
