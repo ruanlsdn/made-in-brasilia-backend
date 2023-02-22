@@ -9,6 +9,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserTypeModule } from './user-type/user-type.module';
 import { CommentModule } from './comment/comment.module';
+import { PostCategoryModule } from './post-category/post-category.module';
+import { PostRatingModule } from './post-rating/post-rating.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { CommentModule } from './comment/comment.module';
     AuthModule,
     UserTypeModule,
     CommentModule,
+    PostCategoryModule,
+    PostRatingModule,
   ],
   controllers: [],
   providers: [],

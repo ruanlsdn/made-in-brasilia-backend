@@ -29,7 +29,7 @@ export class OpenaiService {
         response.data.choices[0].text.replace(/\n/g, '').trim(),
       );
     } catch (error) {
-      throw new Error('Something went wrong - ' + error.message);
+      throw new Error('Something went wrong - ' + error);
     }
   }
 

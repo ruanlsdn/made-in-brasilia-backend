@@ -11,17 +11,18 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
+  id         String       @id @default(uuid())
   email      String
-  username   String    @unique
+  username   String       @unique
   password   String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  userType   UserType  @relation(fields: [userTypeId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  userType   UserType     @relation(fields: [userTypeId], references: [id])
   userTypeId Int
   Post       Post[]
   Comment    Comment[]
   Answer     Answer[]
+  PostRating PostRating[]
 }
 
 model UserType {
@@ -72,6 +73,7 @@ model Post {
   User           User?        @relation(fields: [userId], references: [id])
   userId         String?
   PostImages     PostImages[]
+  PostRating     PostRating[]
 }
 
 model PostImages {
@@ -97,6 +99,17 @@ model PostStatus {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Post        Post[]
+}
+
+model PostRating {
+  id        Int      @id @default(autoincrement())
+  rate      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Comment {

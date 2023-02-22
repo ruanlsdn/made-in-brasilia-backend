@@ -18,7 +18,8 @@ export class PostService {
         openTime: createPostDto.openTime,
         closeTime: createPostDto.closeTime,
         cityId: createPostDto.cityId,
-        postStatusId: createPostDto.postStatusId,
+        postCategoryId: 1,
+        postStatusId: 1,
       },
     });
   }
@@ -60,7 +61,7 @@ export class PostService {
     // QUERY UTILIZADA NO FRONTEND
     return await this.prisma.post.findMany({
       where: { cityId: cityId },
-      include: { PostStatus: true },
+      include: { PostStatus: true, PostCategory: true },
       orderBy: { name: Prisma.SortOrder.asc },
     });
   }

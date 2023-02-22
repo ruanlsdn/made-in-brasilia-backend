@@ -39,6 +39,10 @@ export class CreatePostDto {
 
   @ApiProperty()
   @IsInt()
+  postCategoryId: number;
+
+  @ApiProperty()
+  @IsInt()
   @IsIn([1, 2, 3])
   postStatusId: number;
 }
