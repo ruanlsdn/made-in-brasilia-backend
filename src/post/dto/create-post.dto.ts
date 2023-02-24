@@ -15,6 +15,11 @@ export class CreatePostDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
+  location: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
   openDay: string;
 
   @ApiProperty()

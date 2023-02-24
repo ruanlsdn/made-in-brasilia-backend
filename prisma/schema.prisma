@@ -57,6 +57,7 @@ model Post {
   id             String       @id @default(uuid())
   name           String
   text           String
+  location       String
   openDay        String
   closeDay       String
   openTime       String

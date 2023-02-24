@@ -13,6 +13,7 @@ export class PostService {
       data: {
         name: createPostDto.name,
         text: createPostDto.text,
+        location: createPostDto.location,
         openDay: createPostDto.openDay,
         closeDay: createPostDto.closeDay,
         openTime: createPostDto.openTime,

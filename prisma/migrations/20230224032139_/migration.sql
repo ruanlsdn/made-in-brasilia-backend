@@ -49,6 +49,7 @@ CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "text" TEXT NOT NULL,
+    "location" TEXT NOT NULL,
     "openDay" TEXT NOT NULL,
     "closeDay" TEXT NOT NULL,
     "openTime" TEXT NOT NULL,
