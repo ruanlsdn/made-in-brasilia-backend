@@ -49,7 +49,7 @@ model CityImages {
   content   Bytes
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  City      City     @relation(fields: [cityId], references: [id])
+  City      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId    String
 }
 
@@ -68,7 +68,7 @@ model Post {
   cityId         String
   PostStatus     PostStatus   @relation(fields: [postStatusId], references: [id])
   postStatusId   Int
-  PostCategory   PostCategory @relation(fields: [postCategoryId], references: [id])
+  postCategory   PostCategory @relation(fields: [postCategoryId], references: [id])
   postCategoryId Int
   Comment        Comment[]
   User           User?        @relation(fields: [userId], references: [id])
@@ -82,7 +82,7 @@ model PostImages {
   content   Bytes
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Post      Post     @relation(fields: [postId], references: [id])
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 }
 

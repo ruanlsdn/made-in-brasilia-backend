@@ -53,6 +53,7 @@ export class PostService {
 
       // QUERY UTILIZADA NO ADMIN
       return await this.prisma.post.findMany({
+        include: { postCategory: true },
         orderBy: { name: Prisma.SortOrder.asc },
         skip,
         take: PAGE_SIZE,
@@ -62,7 +63,7 @@ export class PostService {
     // QUERY UTILIZADA NO FRONTEND
     return await this.prisma.post.findMany({
       where: { cityId: cityId },
-      include: { PostStatus: true, PostCategory: true },
+      include: { PostStatus: true, postCategory: true },
       orderBy: { name: Prisma.SortOrder.asc },
     });
   }
@@ -106,6 +107,7 @@ export class PostService {
         openTime: updatePostDto.openTime,
         closeTime: updatePostDto.closeTime,
         postStatusId: updatePostDto.postStatusId,
+        postCategoryId: updatePostDto.postCategoryId,
         cityId: updatePostDto.cityId,
       },
     });
