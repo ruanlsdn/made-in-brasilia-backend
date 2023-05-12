@@ -57,6 +57,19 @@ export class UserService {
     return { ...response, password: undefined };
   }
 
+  async changePassword(updateUserDto: UpdateUserDto) {
+    const response = await this.prisma.user.findFirstOrThrow({
+      where: { email: updateUserDto.email },
+    });
+
+    await this.prisma.user.update({
+      where: { id: response.id },
+      data: {
+        password: bcrypt.hashSync(updateUserDto.password, 10),
+      },
+    });
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     const response = await this.prisma.user.update({
       where: { id: id },

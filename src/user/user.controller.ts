@@ -33,6 +33,11 @@ export class UserController {
     return this.userService.findById(id);
   }
 
+  @Patch()
+  changePassword(@Body() updateUserDto: UpdateUserDto) {
+    this.userService.changePassword(updateUserDto);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
