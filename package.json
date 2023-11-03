@@ -10,6 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
+    "prisma:generate": "npx prisma generate",   
     "start-dev:migrate-reset": "npx prisma migrate reset --force && npm rum start:dev",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
