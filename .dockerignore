@@ -1,3 +1,8 @@
-node_modules
 dist
+node_modules
+.dockerignore
 .env
+.eslintrc.js
+.gitignore
+.prettierrc
+*.md
