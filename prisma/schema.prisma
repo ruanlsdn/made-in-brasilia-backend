@@ -16,7 +16,7 @@ model User {
   username   String       @unique
   password   String
   createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  updatedAt   DateTime     @updatedAt @default(now())
   userType   UserType     @relation(fields: [userTypeId], references: [id])
   userTypeId Int
   Post       Post[]
@@ -29,7 +29,7 @@ model UserType {
   id          Int      @id @default(autoincrement())
   description String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @updatedAt @default(now())
   User        User[]
 }
 
@@ -39,7 +39,7 @@ model City {
   title      String
   text       String
   createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  updatedAt   DateTime     @updatedAt @default(now())
   Post       Post[]
   CityImages CityImages[]
 }
@@ -48,7 +48,7 @@ model CityImages {
   id        String   @id @default(uuid())
   content   Bytes
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   City      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId    String
 }
@@ -63,7 +63,7 @@ model Post {
   openTime       String
   closeTime      String
   createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  updatedAt      DateTime     @updatedAt @default(now())
   city           City         @relation(fields: [cityId], references: [id])
   cityId         String
   PostStatus     PostStatus   @relation(fields: [postStatusId], references: [id])
@@ -81,7 +81,7 @@ model PostImages {
   id        String   @id @default(uuid())
   content   Bytes
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 }
@@ -90,7 +90,7 @@ model PostCategory {
   id          Int      @id @default(autoincrement())
   description String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @updatedAt @default(now())
   Post        Post[]
 }
 
@@ -98,7 +98,7 @@ model PostStatus {
   id          Int      @id @default(autoincrement())
   description String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @updatedAt @default(now())
   Post        Post[]
 }
 
@@ -106,7 +106,7 @@ model PostRating {
   id        Int      @id @default(autoincrement())
   rate      Float
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
   User      User     @relation(fields: [userId], references: [id])
@@ -117,7 +117,7 @@ model Comment {
   id        String   @id @default(uuid())
   text      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
   User      User?    @relation(fields: [userId], references: [id])
@@ -129,7 +129,7 @@ model Answer {
   id        String   @id @default(uuid())
   text      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   Comment   Comment  @relation(fields: [commentId], references: [id])
   commentId String
   User      User     @relation(fields: [userId], references: [id])
