@@ -29,11 +29,11 @@ COPY --from=development /app/node_modules ./node_modules
 
 COPY . .
 
+# Set NODE_ENV environment variable
+ENV NODE_ENV=production
+
 # Run the build command which creates the production bundle
 RUN npm run build
-
-# Set NODE_ENV environment variable
-ENV NODE_ENV production
 
 # Running `npm ci` removes the existing node_modules directory and pASsing in --omit=dev ensures that only the production dependencies are installed. This ensures that the node_modules directory is AS optimized AS possible
 RUN npm ci --omit=dev && npm cache clean --force
