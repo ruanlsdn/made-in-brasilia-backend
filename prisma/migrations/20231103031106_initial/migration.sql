@@ -181,6 +181,9 @@ INSERT INTO "PostStatus" ("id", "description") VALUES (2, 'APROVADO');
 INSERT INTO "PostStatus" ("id", "description") VALUES (3, 'REPROVADO');
 
 INSERT INTO "PostCategory" ("id", "description") VALUES (1, 'BAR E RESTAURANTE');
+INSERT INTO "PostCategory" ("id", "description") VALUES (2, 'LOJA');
+INSERT INTO "PostCategory" ("id", "description") VALUES (3, 'HOSPEDAGEM');
+INSERT INTO "PostCategory" ("id", "description") VALUES (4, 'SHOPPING');
 
 INSERT INTO "UserType" ("id", "description") VALUES (1, 'COMUM');
 INSERT INTO "UserType" ("id", "description") VALUES (2, 'ADMINISTRADOR');
