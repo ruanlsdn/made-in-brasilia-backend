@@ -80,13 +80,13 @@ export class CityService {
     });
   }
 
-  async getTextsFromAi(cidade: string) {
+  async getTextsFromAi(bairro: string) {
     const PROMPT = `
     Siga a seguinte estrutura:\n\n
     1: \n
     2: \n\n
-    em 1 coloque um titulo sendo algo similiar a (${cidade} - (alguma caracteristica marcante do local)
-    em 2 coloque um resumo prolixo da história da cidade ${cidade} 
+    em 1 coloque um titulo sendo algo similiar a (${bairro} - (alguma caracteristica marcante do local)
+    em 2 coloque um resumo prolixo da história da bairro ${bairro} 
     localizada em Brasília no Distrito Federal\n\n
     `;
 
