@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl"]  
 }
 
@@ -13,11 +13,11 @@ datasource db {
 
 model User {
   id         String       @id @default(uuid())
-  email      String
+  email      String       @unique
   username   String       @unique
   password   String
   createdAt  DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt @default(now())
+  updatedAt  DateTime     @updatedAt @default(now())
   userType   UserType     @relation(fields: [userTypeId], references: [id])
   userTypeId Int
   Post       Post[]
@@ -40,7 +40,7 @@ model City {
   title      String
   text       String
   createdAt  DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt @default(now())
+  updatedAt  DateTime     @updatedAt @default(now())
   Post       Post[]
   CityImages CityImages[]
 }
@@ -67,7 +67,7 @@ model Post {
   updatedAt      DateTime     @updatedAt @default(now())
   city           City         @relation(fields: [cityId], references: [id])
   cityId         String
-  PostStatus     PostStatus   @relation(fields: [postStatusId], references: [id])
+  postStatus     PostStatus   @relation(fields: [postStatusId], references: [id])
   postStatusId   Int
   postCategory   PostCategory @relation(fields: [postCategoryId], references: [id])
   postCategoryId Int
@@ -107,7 +107,7 @@ model PostRating {
   id        Int      @id @default(autoincrement())
   rate      Float
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now())
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
   User      User     @relation(fields: [userId], references: [id])
@@ -118,7 +118,7 @@ model Comment {
   id        String   @id @default(uuid())
   text      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now())
   Post      Post     @relation(fields: [postId], references: [id])
   postId    String
   User      User?    @relation(fields: [userId], references: [id])
