@@ -67,8 +67,8 @@ export class CityController {
     return await this.service.delete(id);
   }
 
-  @Get('/get-ai-texts/:cidade')
-  getTextsFromAi(@Param('cidade') cidade: string) {
-    return this.service.getTextsFromAi(cidade);
+  @Get('/get-ai-texts/:bairro')
+  getTextsFromAi(@Param('bairro') bairro: string) {
+    return this.service.getTextsFromAi(bairro);
   }
 }

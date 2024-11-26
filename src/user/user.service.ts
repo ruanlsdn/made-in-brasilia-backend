@@ -15,7 +15,7 @@ export class UserService {
         username: createUserDto.username,
         password: bcrypt.hashSync(createUserDto.password, 10),
         email: createUserDto.email,
-        userTypeId: 1,
+        userTypeId: createUserDto.userTypeId,
       },
     });
 
